@@ -17,3 +17,80 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+function Content(headlineContent, authorImage, authorsName) {
+  card = document.createElement("div");
+  headline = document.createElement("div");
+  author = document.createElement("div");
+  imgContainer = document.createElement("div");
+  authorImg = document.createElement("img");
+  authorName = document.createElement("span");
+
+  card.classList.add("card");
+  headline.classList.add("headline");
+  author.classList.add("author");
+  imgContainer.classList.add("img-container");
+
+  headline.textContent = headlineContent;
+  authorImg.src = authorImage;
+  authorName.textContent = authorsName;
+
+  card.appendChild(headline);
+  card.appendChild(author);
+  author.appendChild(imgContainer);
+  imgContainer.appendChild(authorImg);
+  author.appendChild(authorName);
+
+  return card;
+}
+
+cardContainer = document.querySelector(".cards-container");
+
+axios
+  .get("https://lambda-times-backend.herokuapp.com/articles")
+  .then(response => {
+    console.log(response);
+    response.data.articles.bootstrap.forEach(element => {
+      let newCard = Content(
+        element.headline,
+        element.authorPhoto,
+        element.authorName
+      );
+      cardContainer.appendChild(newCard);
+    });
+    response.data.articles.javascript.forEach(element => {
+      let newCard = Content(
+        element.headline,
+        element.authorPhoto,
+        element.authorName
+      );
+      cardContainer.appendChild(newCard);
+    });
+    response.data.articles.jquery.forEach(element => {
+      let newCard = Content(
+        element.headline,
+        element.authorPhoto,
+        element.authorName
+      );
+      cardContainer.appendChild(newCard);
+    });
+    response.data.articles.node.forEach(element => {
+      let newCard = Content(
+        element.headline,
+        element.authorPhoto,
+        element.authorName
+      );
+      cardContainer.appendChild(newCard);
+    });
+    response.data.articles.technology.forEach(element => {
+      let newCard = Content(
+        element.headline,
+        element.authorPhoto,
+        element.authorName
+      );
+      cardContainer.appendChild(newCard);
+    });
+  })
+  .catch(error => {
+    console.log("error", error);
+  });
